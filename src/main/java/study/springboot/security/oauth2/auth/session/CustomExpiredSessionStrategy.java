@@ -1,4 +1,4 @@
-package study.springboot.security.jwt.auth.session;
+package study.springboot.security.oauth2.auth.session;
 
 import org.springframework.security.web.session.SessionInformationExpiredEvent;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;

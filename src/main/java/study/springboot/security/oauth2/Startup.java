@@ -1,8 +1,8 @@
-package study.springboot.security.jwt;
+package study.springboot.security.oauth2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import study.springboot.security.jwt.support.SpringBootCfg;
+import study.springboot.security.oauth2.support.SpringBootCfg;
 
 public class Startup {
 

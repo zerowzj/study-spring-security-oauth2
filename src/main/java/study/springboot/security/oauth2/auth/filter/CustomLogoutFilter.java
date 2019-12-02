@@ -1,4 +1,4 @@
-package study.springboot.security.jwt.auth.filter;
+package study.springboot.security.oauth2.auth.filter;
 
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;

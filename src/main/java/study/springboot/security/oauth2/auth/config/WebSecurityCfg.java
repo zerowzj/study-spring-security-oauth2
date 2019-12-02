@@ -1,4 +1,4 @@
-package study.springboot.security.jwt.auth.config;
+package study.springboot.security.oauth2.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -12,9 +12,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import study.springboot.security.jwt.auth.filter.WatchDogFilter;
-import study.springboot.security.jwt.auth.session.CustomExpiredSessionStrategy;
-import study.springboot.security.jwt.auth.session.CustomInvalidSessionStrategy;
+import study.springboot.security.oauth2.auth.filter.WatchDogFilter;
 
 @Configuration
 public class WebSecurityCfg extends WebSecurityConfigurerAdapter {

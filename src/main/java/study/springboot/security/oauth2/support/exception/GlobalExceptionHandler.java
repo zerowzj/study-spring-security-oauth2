@@ -1,4 +1,4 @@
-package study.springboot.security.jwt.support.exception;
+package study.springboot.security.oauth2.support.exception;
 
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;

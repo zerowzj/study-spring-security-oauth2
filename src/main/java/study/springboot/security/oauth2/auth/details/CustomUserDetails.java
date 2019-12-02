@@ -1,4 +1,4 @@
-package study.springboot.security.jwt.auth.details;
+package study.springboot.security.oauth2.auth.details;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
