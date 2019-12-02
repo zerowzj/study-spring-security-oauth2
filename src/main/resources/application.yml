@@ -7,7 +7,7 @@ logging:
 #
 spring:
   application:
-    name: study-spring-security-jwt
+    name: study-springboot-security-oauth2
   #####################
   #
   #####################
