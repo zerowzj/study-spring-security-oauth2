@@ -33,11 +33,6 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
 
-    @Autowired
-    private CustomExpiredSessionStrategy expiredSessionStrategy;
-    @Autowired
-    private CustomInvalidSessionStrategy invalidSessionStrategy;
-
     /**
      * （★）HTTP请求安全
      */
