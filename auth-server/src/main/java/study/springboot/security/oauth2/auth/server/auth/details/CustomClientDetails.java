@@ -9,14 +9,23 @@ import java.util.Set;
 
 public class CustomClientDetails implements ClientDetails {
 
+    /*  */
+    private String clientId;
+    /*  */
+    private String clientSecret;
+    /*  */
+    private Set<String> resourceIds;
+    /*  */
+    private Set<String> authorizedGrantTypes;
+
     @Override
     public String getClientId() {
-        return null;
+        return this.clientId;
     }
 
     @Override
     public Set<String> getResourceIds() {
-        return null;
+        return this.resourceIds;
     }
 
     @Override
@@ -26,7 +35,7 @@ public class CustomClientDetails implements ClientDetails {
 
     @Override
     public String getClientSecret() {
-        return null;
+        return this.clientSecret;
     }
 
     @Override
@@ -41,7 +50,7 @@ public class CustomClientDetails implements ClientDetails {
 
     @Override
     public Set<String> getAuthorizedGrantTypes() {
-        return null;
+        return this.authorizedGrantTypes;
     }
 
     @Override
