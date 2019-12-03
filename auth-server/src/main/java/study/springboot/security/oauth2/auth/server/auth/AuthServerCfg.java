@@ -45,7 +45,7 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
         tokenServices.setSupportRefreshToken(false);
         tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
         tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
-        tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(10)); //分钟
+        tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(10));
 
         endpoints.authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
