@@ -11,16 +11,23 @@ import java.util.Collection;
 @Component
 public class CustomTokenStore implements TokenStore {
 
+    /**
+     * 获取认证
+     */
     @Override
     public OAuth2Authentication readAuthentication(OAuth2AccessToken oAuth2AccessToken) {
-        return null;
+        return readAuthentication(oAuth2AccessToken.getValue());
     }
+
 
     @Override
     public OAuth2Authentication readAuthentication(String s) {
         return null;
     }
 
+    /**
+     *
+     */
     @Override
     public void storeAccessToken(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
 
