@@ -15,7 +15,6 @@ import study.springsecurity.oauth2.auth.server.auth.token.CustomTokenStore;
 
 import java.util.concurrent.TimeUnit;
 
-
 @Configuration
 public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
 
