@@ -4,6 +4,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 
 @EnableAuthorizationServer
-@SpringBootApplication(scanBasePackages = "study.springboot.security")
+@SpringBootApplication(scanBasePackages = "study.spring.security.oauth2.auth.server")
 public class SpringBootCfg {
 }
