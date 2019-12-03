@@ -27,8 +27,12 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private CustomTokenStore tokenStore;
 
+    /**
+     * 配置
+     */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        security.allowFormAuthenticationForClients();
     }
 
     /**
@@ -36,7 +40,12 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.withClientDetails(clientDetailsService);
+        //clients.withClientDetails(clientDetailsService);
+        clients.inMemory().withClient("client_id")
+                .secret("secret")
+                .authorizedGrantTypes("client_credentials", "refresh_token") //认证类型
+                .scopes("123123") //密钥
+        ;
     }
 
     /**
@@ -52,9 +61,9 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
         tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
         tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(10));
 
-        endpoints.authenticationManager(authenticationManager)
-                .userDetailsService(userDetailsService)  //用户管理
-                .tokenStore(tokenStore) //token存储
+        endpoints.userDetailsService(userDetailsService)  //用户管理
+                .authenticationManager(authenticationManager)
+                //.tokenStore(tokenStore) //token存储
                 .tokenServices(tokenServices)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST) //get post
         ;

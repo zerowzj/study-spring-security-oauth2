@@ -13,7 +13,6 @@ import java.util.Collection;
 @Component
 public class CustomTokenStore implements TokenStore {
 
-    @Autowired
     private AccessTokenDao accessTokenDao;
 
     /**
