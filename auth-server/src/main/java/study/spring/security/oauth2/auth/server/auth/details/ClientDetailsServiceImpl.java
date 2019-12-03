@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ClientDetailsServiceImpl implements ClientDetailsService {
 
     @Override
-    public ClientDetails loadClientByClientId(String s) throws ClientRegistrationException {
+    public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
         return null;
     }
 }

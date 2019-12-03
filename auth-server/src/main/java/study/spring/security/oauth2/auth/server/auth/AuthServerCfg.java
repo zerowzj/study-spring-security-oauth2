@@ -2,6 +2,7 @@ package study.spring.security.oauth2.auth.server.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -31,11 +32,17 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
     }
 
+    /**
+     * Client配置
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.withClientDetails(clientDetailsService);
     }
 
+    /**
+     * 认证服务端点配置
+     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         //
@@ -47,8 +54,10 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
         tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(10));
 
         endpoints.authenticationManager(authenticationManager)
-                .userDetailsService(userDetailsService)
-                .tokenStore(tokenStore)
-                .tokenServices(tokenServices);
+                .userDetailsService(userDetailsService)  //用户管理
+                .tokenStore(tokenStore) //token存储
+                .tokenServices(tokenServices)
+                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST) //get post
+        ;
     }
 }
