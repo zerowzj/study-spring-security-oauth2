@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
@@ -22,8 +23,8 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
     private AuthenticationManager authenticationManager;
     @Autowired
     private ClientDetailsService clientDetailsService;
-    @Autowired
-    private UserDetailsService userDetailsService;
+//    @Autowired
+//    private UserDetailsService userDetailsService;
     @Autowired
     private CustomTokenStore tokenStore;
 
@@ -32,7 +33,8 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.allowFormAuthenticationForClients();
+        security.allowFormAuthenticationForClients()
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
     /**
@@ -44,7 +46,7 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
         clients.inMemory().withClient("client_id")
                 .secret("secret")
                 .authorizedGrantTypes("client_credentials", "refresh_token") //认证类型
-                .scopes("123123") //密钥
+                .scopes("123") //密钥
         ;
     }
 
@@ -61,8 +63,8 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
         tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
         tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(10));
 
-        endpoints.userDetailsService(userDetailsService)  //用户管理
-                .authenticationManager(authenticationManager)
+        endpoints.authenticationManager(authenticationManager)
+                //.userDetailsService(userDetailsService)
                 //.tokenStore(tokenStore) //token存储
                 .tokenServices(tokenServices)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST) //get post
