@@ -16,11 +16,6 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    private AuthenticationSuccessHandler loginSuccessHandler;
-    @Autowired
-    private AuthenticationFailureHandler loginFailureHandler;
-
     /**
      * （★）HTTP请求安全
      */
