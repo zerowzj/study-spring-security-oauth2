@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -23,7 +22,7 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
     private AuthenticationManager authenticationManager;
     @Autowired
     private ClientDetailsService clientDetailsService;
-//    @Autowired
+    //    @Autowired
 //    private UserDetailsService userDetailsService;
     @Autowired
     private CustomTokenStore tokenStore;
@@ -44,9 +43,9 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         //clients.withClientDetails(clientDetailsService);
         clients.inMemory().withClient("client_id")
-                .secret("secret")
+                .secret("secret") //密钥
                 .authorizedGrantTypes("client_credentials", "refresh_token") //认证类型
-                .scopes("123") //密钥
+                .scopes("ALL")
         ;
     }
 
