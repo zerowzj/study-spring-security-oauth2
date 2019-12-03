@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xdf.ucan.remixed.basicmdm.dao.BsAreaDao">
+    <resultMap id="Base_Result_Map" type="com.xdf.ucan.remixed.basicmdm.model.BsArea">
+        <result property="id" column="ID" jdbcType="DECIMAL"/>
+        <result property="nschoolId" column="NSCHOOLID" jdbcType="DECIMAL"/>
+        <result property="scode" column="SCODE" jdbcType="VARCHAR"/>
+        <result property="sname" column="SNAME" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, NSCHOOLID, SCODE, SNAME
+    </sql>
+</mapper>
