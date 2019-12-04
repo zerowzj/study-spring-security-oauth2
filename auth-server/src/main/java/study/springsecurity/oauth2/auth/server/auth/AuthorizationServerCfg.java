@@ -36,10 +36,10 @@ public class AuthorizationServerCfg extends AuthorizationServerConfigurerAdapter
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.tokenKeyAccess("permitAll()") //
+        security.allowFormAuthenticationForClients() //
+                .tokenKeyAccess("permitAll()") //
                 .checkTokenAccess("isAuthenticated()") //
-                .allowFormAuthenticationForClients() //
-                .passwordEncoder(NoOpPasswordEncoder.getInstance()) //密码编码器\
+                .passwordEncoder(NoOpPasswordEncoder.getInstance()) //密码编码器
         ;
     }
 
@@ -73,19 +73,20 @@ public class AuthorizationServerCfg extends AuthorizationServerConfigurerAdapter
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         //
-        DefaultTokenServices tokenServices = new DefaultTokenServices();
-        tokenServices.setTokenStore(endpoints.getTokenStore());
-        tokenServices.setSupportRefreshToken(false);
-        tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
-        tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
-        tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(10));
+//        DefaultTokenServices tokenServices = new DefaultTokenServices();
+//        tokenServices.setTokenStore(endpoints.getTokenStore());
+//        tokenServices.setSupportRefreshToken(false);
+//        tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
+//        tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
+//        tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(10));
 
-        endpoints.authenticationManager(authenticationManager) //端点认证管理器
-                .userDetailsService(userDetailsService) //
+        endpoints.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST) //允许GET、POST请求获取token，即访问端点：oauth/token
+                .authenticationManager(authenticationManager) //端点认证管理器
+                //.userDetailsService(userDetailsService) //
                 .tokenStore(new InMemoryTokenStore()) //token存储
-                //.tokenServices(tokenServices)
-                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST) //允许GET、POST请求获取token，即访问端点：oauth/token
+        //.tokenServices(tokenServices)
+        //.userApprovalHandler(null)
+        //.authorizationCodeServices(null)
         ;
-
     }
 }

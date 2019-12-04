@@ -31,7 +31,6 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
                 .antMatchers("/oauth/**").permitAll()
                 .anyRequest().authenticated()
         ;
-        http.userDetailsService(userDetailsService);
     }
 
     /**
@@ -59,14 +58,14 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
         return manager;
     }
 
-    @Override
-    protected UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.withUsername("wzj")
-                .password("{noop}123")
-                .roles("USER")
-                .build();
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(userDetails);
-        return manager;
-    }
+//    @Override
+//    protected UserDetailsService userDetailsService() {
+//        UserDetails userDetails = User.withUsername("wzj")
+//                .password("{noop}123")
+//                .roles("USER")
+//                .build();
+//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+//        manager.createUser(userDetails);
+//        return manager;
+//    }
 }

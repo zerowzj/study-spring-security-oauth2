@@ -12,11 +12,13 @@ public class CustomClientDetails implements ClientDetails {
     /*  */
     private String clientId;
     /*  */
+    private Set<String> authorizedGrantTypes;
+    /*  */
     private String clientSecret;
     /*  */
-    private Set<String> resourceIds;
+    private Set<String> scopes;
     /*  */
-    private Set<String> authorizedGrantTypes;
+    private Set<String> resourceIds;
 
     @Override
     public String getClientId() {
@@ -45,7 +47,7 @@ public class CustomClientDetails implements ClientDetails {
 
     @Override
     public Set<String> getScope() {
-        return null;
+        return this.scopes;
     }
 
     @Override

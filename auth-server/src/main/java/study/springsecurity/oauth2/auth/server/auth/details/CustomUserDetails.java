@@ -7,8 +7,9 @@ import java.util.Collection;
 
 public class CustomUserDetails implements UserDetails {
 
+    /* 用户名 */
     private String username;
-
+    /* 密码 */
     private String password;
 
     public CustomUserDetails(String username, String password) {
