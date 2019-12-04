@@ -22,12 +22,12 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+//        http.authorizeRequests()
 //                .antMatchers("/oauth/**")
 //                .permitAll()
-                .anyRequest()
-                .authenticated()
-        ;
+//                .anyRequest()
+//                .authenticated()
+//        ;
 //        http.requestMatchers()
 //                .anyRequest()
 //                .and()
@@ -49,7 +49,7 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .passwordEncoder(NoOpPasswordEncoder.getInstance()) //密码编码器
         ;
     }
 

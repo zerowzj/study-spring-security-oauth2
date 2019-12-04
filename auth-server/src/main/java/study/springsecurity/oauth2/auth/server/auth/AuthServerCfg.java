@@ -34,8 +34,8 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
         clients.inMemory()
                 .withClient("client_id")
                 .secret("secret") //密钥
-                .authorizedGrantTypes("client_credentials", "refresh_token") //认证类型
-                .scopes("ALL")
+                .authorizedGrantTypes("authorization_code", "client_credentials", "password", "refresh_token") //认证类型
+                .scopes("all")
 //                .authorities("oauth2")
         ;
     }
@@ -45,8 +45,11 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.allowFormAuthenticationForClients()
-                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+        security.tokenKeyAccess("permitAll()") //
+                .checkTokenAccess("isAuthenticated()") //
+                .allowFormAuthenticationForClients() //
+                .passwordEncoder(NoOpPasswordEncoder.getInstance()) //密码编码器
+        ;
     }
 
     /**
@@ -62,11 +65,11 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
         tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
         tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(10));
 
-        endpoints.authenticationManager(authenticationManager)
-                //.userDetailsService(userDetailsService)
+        endpoints.authenticationManager(authenticationManager) //端点认证管理器
+                //.userDetailsService(userDetailsService) //
                 //.tokenStore(tokenStore) //token存储
-//                .tokenServices(tokenServices)
-                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST) //支持get post请求
+                //.tokenServices(tokenServices)
+                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST) //允许GET、POST请求获取token，即访问端点：oauth/token
         ;
     }
 }
