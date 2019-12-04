@@ -9,8 +9,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
@@ -28,6 +31,7 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
                 .antMatchers("/oauth/**").permitAll()
                 .anyRequest().authenticated()
         ;
+        http.userDetailsService(userDetailsService);
     }
 
     /**
@@ -35,6 +39,7 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
+        web.debug(true);
     }
 
     /**
@@ -51,6 +56,17 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
         AuthenticationManager manager = super.authenticationManager();
+        return manager;
+    }
+
+    @Override
+    protected UserDetailsService userDetailsService() {
+        UserDetails userDetails = User.withUsername("wzj")
+                .password("{noop}123")
+                .roles("USER")
+                .build();
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(userDetails);
         return manager;
     }
 }

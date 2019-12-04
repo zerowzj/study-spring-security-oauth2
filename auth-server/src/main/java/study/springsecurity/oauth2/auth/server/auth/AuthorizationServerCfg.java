@@ -12,12 +12,13 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import study.springsecurity.oauth2.auth.server.auth.token.CustomTokenStore;
 
 import java.util.concurrent.TimeUnit;
 
 @Configuration
-public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerCfg extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -38,7 +39,7 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
         security.tokenKeyAccess("permitAll()") //
                 .checkTokenAccess("isAuthenticated()") //
                 .allowFormAuthenticationForClients() //
-                .passwordEncoder(NoOpPasswordEncoder.getInstance()) //密码编码器
+                .passwordEncoder(NoOpPasswordEncoder.getInstance()) //密码编码器\
         ;
     }
 
@@ -55,7 +56,7 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
                 .secret("secret") //密钥
                 .authorizedGrantTypes("authorization_code", "client_credentials", "password", "refresh_token") //认证类型
                 .scopes("all")
-                .authorities("oauth2")
+        //.authorities("oauth2")
         //.redirectUris("") //
         //.autoApprove("") //
         //.autoApprove(false)
@@ -80,10 +81,11 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
         tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(10));
 
         endpoints.authenticationManager(authenticationManager) //端点认证管理器
-                //.userDetailsService(userDetailsService) //
-                //.tokenStore(tokenStore) //token存储
+                .userDetailsService(userDetailsService) //
+                .tokenStore(new InMemoryTokenStore()) //token存储
                 //.tokenServices(tokenServices)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST) //允许GET、POST请求获取token，即访问端点：oauth/token
         ;
+
     }
 }
