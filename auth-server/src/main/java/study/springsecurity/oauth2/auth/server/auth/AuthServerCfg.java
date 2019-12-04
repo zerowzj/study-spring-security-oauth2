@@ -22,19 +22,8 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
     private AuthenticationManager authenticationManager;
     @Autowired
     private ClientDetailsService clientDetailsService;
-    //    @Autowired
-//    private UserDetailsService userDetailsService;
     @Autowired
     private CustomTokenStore tokenStore;
-
-    /**
-     * 配置
-     */
-    @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.allowFormAuthenticationForClients()
-                .passwordEncoder(NoOpPasswordEncoder.getInstance());
-    }
 
     /**
      * Client配置
@@ -42,11 +31,22 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         //clients.withClientDetails(clientDetailsService);
-        clients.inMemory().withClient("client_id")
+        clients.inMemory()
+                .withClient("client_id")
                 .secret("secret") //密钥
                 .authorizedGrantTypes("client_credentials", "refresh_token") //认证类型
                 .scopes("ALL")
+//                .authorities("oauth2")
         ;
+    }
+
+    /**
+     * 认证服务安全配置
+     */
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        security.allowFormAuthenticationForClients()
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
     /**
@@ -65,8 +65,8 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
         endpoints.authenticationManager(authenticationManager)
                 //.userDetailsService(userDetailsService)
                 //.tokenStore(tokenStore) //token存储
-                .tokenServices(tokenServices)
-                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST) //get post
+//                .tokenServices(tokenServices)
+                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST) //支持get post请求
         ;
     }
 }
