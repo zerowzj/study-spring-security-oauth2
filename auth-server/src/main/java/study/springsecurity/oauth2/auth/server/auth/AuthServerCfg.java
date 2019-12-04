@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -23,6 +24,8 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private ClientDetailsService clientDetailsService;
     @Autowired
+    private UserDetailsService userDetailsService;
+    @Autowired
     private CustomTokenStore tokenStore;
 
     /**
@@ -36,7 +39,12 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
                 .secret("secret") //密钥
                 .authorizedGrantTypes("authorization_code", "client_credentials", "password", "refresh_token") //认证类型
                 .scopes("all")
-//                .authorities("oauth2")
+                .authorities("oauth2")
+        //.redirectUris("")
+        //.autoApprove("")
+        //.autoApprove(false)
+        //.accessTokenValiditySeconds(60 * 1000) //
+        //.refreshTokenValiditySeconds(60 * 1000) //
         ;
     }
 
@@ -66,7 +74,7 @@ public class AuthServerCfg extends AuthorizationServerConfigurerAdapter {
         tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(10));
 
         endpoints.authenticationManager(authenticationManager) //端点认证管理器
-                //.userDetailsService(userDetailsService) //
+                .userDetailsService(userDetailsService) //
                 //.tokenStore(tokenStore) //token存储
                 //.tokenServices(tokenServices)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST) //允许GET、POST请求获取token，即访问端点：oauth/token
