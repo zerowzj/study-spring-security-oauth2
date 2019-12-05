@@ -59,4 +59,6 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
         AuthenticationManager manager = super.authenticationManager();
         return manager;
     }
+
+
 }
