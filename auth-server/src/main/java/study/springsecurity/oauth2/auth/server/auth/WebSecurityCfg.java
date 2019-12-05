@@ -48,7 +48,7 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * （★）认证管理器
+     * （★）认证管理器配置
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -57,6 +57,9 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
         ;
     }
 
+    /**
+     * （★）认证管理器定义
+     */
     @Bean
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
@@ -64,25 +67,29 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
         return manager;
     }
 
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+//    @Override
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 
-    @Bean
-    @Override
-    protected UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.withUsername("wzj")
-                .password("123")
-//                .roles("USER")
-                .build();
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(userDetails);
-        return manager;
-    }
+    /**
+     * （★）UserDetailsService定义
+     */
+//    @Bean
+//    @Override
+//    protected UserDetailsService userDetailsService() {
+//        UserDetails userDetails = User.withUsername("wzj")
+//                .password("123")
+//                .authorities("oauth")
+////                .roles("USER")
+//                .build();
+//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+//        manager.createUser(userDetails);
+//        return manager;
+//    }
 
-    @Override
-    public UserDetailsService userDetailsServiceBean() throws Exception {
-        return super.userDetailsServiceBean();
-    }
+//    @Override
+//    public UserDetailsService userDetailsServiceBean() throws Exception {
+//        return super.userDetailsServiceBean();
+//    }
 }
