@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +17,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
 @Order(2)
 public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
 
@@ -30,8 +31,8 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/oauth/**").permitAll()
-                .anyRequest().fullyAuthenticated()
-//                .authenticated()
+                .anyRequest().authenticated()
+        //.anyRequest().fullyAuthenticated()
         ;
         http.csrf().disable()
         ;
