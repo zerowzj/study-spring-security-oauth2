@@ -64,6 +64,11 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
         return manager;
     }
 
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @Bean
     @Override
     protected UserDetailsService userDetailsService() {
@@ -74,5 +79,10 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(userDetails);
         return manager;
+    }
+
+    @Override
+    public UserDetailsService userDetailsServiceBean() throws Exception {
+        return super.userDetailsServiceBean();
     }
 }
