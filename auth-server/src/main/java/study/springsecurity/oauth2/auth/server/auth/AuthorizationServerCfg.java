@@ -2,6 +2,7 @@ package study.springsecurity.oauth2.auth.server.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,13 +12,12 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import study.springsecurity.oauth2.auth.server.auth.token.CustomTokenStore;
 
-import java.util.concurrent.TimeUnit;
-
 @Configuration
+@Order(6)
 public class AuthorizationServerCfg extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
@@ -27,7 +27,7 @@ public class AuthorizationServerCfg extends AuthorizationServerConfigurerAdapter
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
-    private CustomTokenStore tokenStore;
+    private TokenStore tokenStore;
 
     /**
      * 配置授权服务器的安全，意味着实际上是/oauth/token端点
@@ -56,7 +56,9 @@ public class AuthorizationServerCfg extends AuthorizationServerConfigurerAdapter
                 .secret("secret") //密钥
                 .authorizedGrantTypes("authorization_code", "client_credentials", "password", "refresh_token") //认证类型
                 .scopes("all")
-        //.authorities("oauth2")
+        //.resourceIds() //
+        //.additionalInformation() //
+        //.authorities("oauth2") //
         //.redirectUris("") //
         //.autoApprove("") //
         //.autoApprove(false)
