@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -29,7 +28,6 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/oauth/**").permitAll()
                 .anyRequest().authenticated()
-        //.anyRequest().fullyAuthenticated()
         ;
         http.csrf().disable()
         ;
@@ -63,30 +61,4 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
         AuthenticationManager manager = super.authenticationManager();
         return manager;
     }
-
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
-
-    /**
-     * （★）UserDetailsService定义
-     */
-//    @Bean
-//    @Override
-//    protected UserDetailsService userDetailsService() {
-//        UserDetails userDetails = User.withUsername("wzj")
-//                .password("123")
-//                .authorities("oauth")
-////                .roles("USER")
-//                .build();
-//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-//        manager.createUser(userDetails);
-//        return manager;
-//    }
-
-//    @Override
-//    public UserDetailsService userDetailsServiceBean() throws Exception {
-//        return super.userDetailsServiceBean();
-//    }
 }
