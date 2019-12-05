@@ -29,8 +29,6 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
                 .antMatchers("/oauth/**").permitAll()
                 .anyRequest().authenticated()
         ;
-        http.csrf().disable()
-        ;
     }
 
     /**

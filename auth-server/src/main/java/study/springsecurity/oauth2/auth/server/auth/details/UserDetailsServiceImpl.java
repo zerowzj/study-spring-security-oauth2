@@ -16,9 +16,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LOGGER.info("loadUserByUsername[{}]", username);
-        if(!Strings.isNullOrEmpty(username)){
-            throw new UsernameNotFoundException("用户名不能为空");
-        }
+//        if(!Strings.isNullOrEmpty(username)){
+//            throw new UsernameNotFoundException("用户名不能为空");
+//        }
         CustomUserDetails userDetails = new CustomUserDetails("wzj", "123");
         return userDetails;
     }
