@@ -80,7 +80,6 @@ public class AuthorizationServerCfg extends AuthorizationServerConfigurerAdapter
 //        tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
 //        tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
 //        tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.MINUTES.toSeconds(10));
-
         endpoints.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST) //允许GET、POST请求获取token，即访问端点：oauth/token
                 .authenticationManager(authenticationManager) //端点认证管理器
                 //.userDetailsService(userDetailsService) //

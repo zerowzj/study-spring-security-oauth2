@@ -68,8 +68,8 @@ public class WebSecurityCfg extends WebSecurityConfigurerAdapter {
     @Override
     protected UserDetailsService userDetailsService() {
         UserDetails userDetails = User.withUsername("wzj")
-                .password("{noop}123")
-                .roles("USER")
+                .password("123")
+//                .roles("USER")
                 .build();
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(userDetails);
